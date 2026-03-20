@@ -283,6 +283,7 @@
       specializedCredits: parseInt(document.getElementById("specialized-credits").value) || 0,
       ownCredits: parseInt(document.getElementById("own-credits").value) || 0,
       generalFoundationCredits: parseInt(document.getElementById("general-foundation-credits").value) || 0,
+      thesisCompleted: document.getElementById("thesis-check").checked,
       fourthYearCredits: parseInt(document.getElementById("fourth-year-credits").value) || 0,
       totalCredits: parseInt(document.getElementById("total-credits").value) || 0,
     };

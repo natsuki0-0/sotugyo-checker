@@ -66,7 +66,18 @@ function checkGraduation(data, input) {
     ok: gfOk
   });
 
-  // 6. 4回生時修得
+  // 6. 卒業論文/ビジネスレポート
+  const thesisOk = input.thesisCompleted;
+  if (!thesisOk) allPassed = false;
+  results.push({
+    label: "卒業論文/ビジネスレポート",
+    required: "修得必須",
+    current: thesisOk ? "修得済" : "未修得",
+    shortage: thesisOk ? 0 : "未修得",
+    ok: thesisOk
+  });
+
+  // 8. 4回生時修得
   const fourthReq = data.fourthYearMinimum;
   const fourthCurrent = input.fourthYearCredits;
   const fourthShort = Math.max(0, fourthReq - fourthCurrent);
@@ -80,7 +91,7 @@ function checkGraduation(data, input) {
     ok: fourthOk
   });
 
-  // 7. 合計
+  // 9. 合計
   const totalReq = data.totalRequired;
   const totalCurrent = input.totalCredits;
   const totalShort = Math.max(0, totalReq - totalCurrent);
