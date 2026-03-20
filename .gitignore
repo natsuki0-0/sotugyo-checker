@@ -1,0 +1,5 @@
+*.pdf
+*.txt
+*.docx
+.claude/
+serve.js

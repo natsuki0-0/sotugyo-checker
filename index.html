@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>立命館大学 経営学部 卒業判定ツール</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1>立命館大学 経営学部<br><span class="subtitle">卒業判定ツール 2026</span></h1>
+      <p class="notice">※非公式ツールです。正確な情報は学修要覧を確認してください。</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- 基本情報セクション -->
+      <section class="card" id="basic-info">
+        <h2>基本情報</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="year">入学年度</label>
+            <select id="year">
+              <option value="2023">2023年度</option>
+              <option value="2024" selected>2024年度</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="department">学科</label>
+            <select id="department">
+              <option value="">選択してください</option>
+              <option value="international">国際経営学科</option>
+              <option value="business">経営学科</option>
+            </select>
+          </div>
+          <div class="form-group" id="course-group" style="display:none;">
+            <label for="course">コース</label>
+            <select id="course">
+              <option value="">選択してください</option>
+              <option value="組織">組織コース</option>
+              <option value="戦略">戦略コース</option>
+              <option value="マーケティング">マーケティングコース</option>
+              <option value="会計・ファイナンス">会計・ファイナンスコース</option>
+            </select>
+          </div>
+          <div class="form-group" id="lang-course-group" style="display:none;">
+            <label for="lang-course">外国語コース</label>
+            <select id="lang-course">
+              <!-- 動的に生成 -->
+            </select>
+            <p class="help-text" id="lang-course-help" style="display:none;"></p>
+          </div>
+          <div class="form-group" id="lang-pattern-group" style="display:none;">
+            <label for="lang-pattern">履修パターン</label>
+            <select id="lang-pattern">
+              <!-- 動的に生成 -->
+            </select>
+            <p class="help-text" id="lang-pattern-help" style="display:none;"></p>
+          </div>
+          <div class="form-group" id="lang-type-group" style="display:none;">
+            <label for="lang-type">言語組み合わせ</label>
+            <select id="lang-type">
+              <!-- 動的に生成（経営学科2言語コース用） -->
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- 単位入力セクション -->
+      <section class="card" id="credits-input" style="display:none;">
+        <h2>単位入力</h2>
+
+        <!-- 教養科目 -->
+        <div class="input-section">
+          <h3>教養科目</h3>
+          <p class="section-desc" id="liberal-desc"></p>
+          <div class="form-row">
+            <label for="liberal-credits">修得単位数</label>
+            <input type="number" id="liberal-credits" min="0" max="124" value="0">
+            <span class="unit">単位</span>
+          </div>
+        </div>
+
+        <!-- 外国語科目 -->
+        <div class="input-section">
+          <h3>外国語科目</h3>
+          <p class="section-desc" id="foreign-desc"></p>
+
+          <div id="foreign-mandatory-section">
+            <h4>必修科目の修得状況</h4>
+            <div class="form-row">
+              <label for="foreign-mandatory-credits">必修 修得単位数</label>
+              <input type="number" id="foreign-mandatory-credits" min="0" max="60" value="0">
+              <span class="unit">単位</span>
+            </div>
+          </div>
+
+          <div id="foreign-elective-section">
+            <h4 id="foreign-elective-label">選択英語（選択必修）</h4>
+            <div class="form-row">
+              <label for="foreign-elective-credits">修得単位数</label>
+              <input type="number" id="foreign-elective-credits" min="0" max="30" value="0">
+              <span class="unit">単位</span>
+            </div>
+          </div>
+
+          <div id="foreign-second-section" style="display:none;">
+            <h4>初修外国語 / 日本語</h4>
+            <div class="form-row">
+              <label for="foreign-second-credits">修得単位数</label>
+              <input type="number" id="foreign-second-credits" min="0" max="30" value="0">
+              <span class="unit">単位</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 専門科目 -->
+        <div class="input-section">
+          <h3>専門科目</h3>
+
+          <div class="subsection">
+            <h4>総合基礎科目（5科目中3科目6単位以上必要）</h4>
+            <div class="checkbox-grid" id="general-foundation-checks">
+              <!-- 動的に生成 -->
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h4 id="own-label">自学科科目 / 自コース科目</h4>
+            <p class="section-desc">6科目12単位以上の修得が必要</p>
+            <div class="form-row">
+              <label for="own-credits">修得単位数</label>
+              <input type="number" id="own-credits" min="0" max="80" value="0">
+              <span class="unit">単位</span>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h4>専門科目 合計</h4>
+            <div class="form-row">
+              <label for="specialized-credits">修得単位数（総合基礎・自学科含む）</label>
+              <input type="number" id="specialized-credits" min="0" max="124" value="0">
+              <span class="unit">単位</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4回生修得 -->
+        <div class="input-section">
+          <h3>4回生時修得単位</h3>
+          <p class="section-desc">4回生時以上において4単位以上修得が必要</p>
+          <div class="form-row">
+            <label for="fourth-year-credits">4回生時の修得単位数</label>
+            <input type="number" id="fourth-year-credits" min="0" max="48" value="0">
+            <span class="unit">単位</span>
+          </div>
+        </div>
+
+        <!-- 合計 -->
+        <div class="input-section total-section">
+          <h3>総修得単位数</h3>
+          <div class="form-row">
+            <label for="total-credits">合計</label>
+            <input type="number" id="total-credits" min="0" max="200" value="0">
+            <span class="unit">単位</span>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="btn-check" class="btn-primary">判定する</button>
+          <button id="btn-sample" class="btn-secondary">サンプル入力</button>
+          <button id="btn-reset" class="btn-secondary">リセット</button>
+        </div>
+      </section>
+
+      <!-- 判定結果セクション -->
+      <section class="card" id="results" style="display:none;">
+        <h2>判定結果</h2>
+        <div id="result-summary" class="result-summary"></div>
+        <table id="result-table" class="result-table">
+          <thead>
+            <tr>
+              <th>要件</th>
+              <th>基準</th>
+              <th>現在</th>
+              <th>不足</th>
+              <th>判定</th>
+            </tr>
+          </thead>
+          <tbody id="result-tbody">
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>立命館大学 経営学部 卒業判定ツール（非公式）</p>
+    <p>2023・2024年度入学者用学修要覧に基づく ｜ 正確な情報は大学窓口へ</p>
+  </footer>
+
+  <script src="js/data/2023.js"></script>
+  <script src="js/data/2024.js"></script>
+  <script src="js/checker.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
