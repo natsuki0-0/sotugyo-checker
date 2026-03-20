@@ -398,6 +398,12 @@ footer p {
   margin: 0.2rem 0;
 }
 
+footer .copyright {
+  margin-top: 0.6rem;
+  font-size: 0.7rem;
+  color: #999;
+}
+
 /* === Responsive === */
 @media (max-width: 600px) {
   header h1 {
