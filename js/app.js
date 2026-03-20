@@ -24,9 +24,23 @@
     document.getElementById("lang-type").addEventListener("change", updateForeignUI);
     document.getElementById("year").addEventListener("change", onYearChange);
 
+    // 単位入力フィールドの変更で合計を自動計算
+    ["liberal-credits", "foreign-mandatory-credits", "foreign-elective-credits", "foreign-second-credits", "specialized-credits"].forEach(id => {
+      document.getElementById(id).addEventListener("input", autoCalcTotal);
+    });
+
     document.getElementById("btn-check").addEventListener("click", runCheck);
     document.getElementById("btn-sample").addEventListener("click", fillSample);
     document.getElementById("btn-reset").addEventListener("click", resetForm);
+  }
+
+  function autoCalcTotal() {
+    const liberal = parseInt(document.getElementById("liberal-credits").value) || 0;
+    const foreignMandatory = parseInt(document.getElementById("foreign-mandatory-credits").value) || 0;
+    const foreignElective = parseInt(document.getElementById("foreign-elective-credits").value) || 0;
+    const foreignSecond = parseInt(document.getElementById("foreign-second-credits").value) || 0;
+    const specialized = parseInt(document.getElementById("specialized-credits").value) || 0;
+    document.getElementById("total-credits").value = liberal + foreignMandatory + foreignElective + foreignSecond + specialized;
   }
 
   function onYearChange() {
@@ -164,20 +178,6 @@
     document.getElementById("own-label").textContent =
       dept === "international" ? "自学科科目" : "自コース科目";
 
-    // 総合基礎科目チェックボックス
-    const gfContainer = document.getElementById("general-foundation-checks");
-    gfContainer.innerHTML = "";
-    deptData.generalFoundationSubjects.forEach((subj, i) => {
-      const label = document.createElement("label");
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.id = "gf-" + i;
-      cb.dataset.credits = subj.credits;
-      label.appendChild(cb);
-      label.appendChild(document.createTextNode(subj.name + "（" + subj.credits + "単位）"));
-      gfContainer.appendChild(label);
-    });
-
     updateForeignUI();
   }
 
@@ -271,9 +271,6 @@
       return;
     }
 
-    // 総合基礎科目のチェック数
-    const gfChecks = document.querySelectorAll("#general-foundation-checks input[type=checkbox]:checked");
-
     const input = {
       department: dept,
       langCourse: langCourse,
@@ -285,7 +282,7 @@
       foreignSecondCredits: parseInt(document.getElementById("foreign-second-credits").value) || 0,
       specializedCredits: parseInt(document.getElementById("specialized-credits").value) || 0,
       ownCredits: parseInt(document.getElementById("own-credits").value) || 0,
-      generalFoundationChecked: gfChecks.length,
+      generalFoundationCredits: parseInt(document.getElementById("general-foundation-credits").value) || 0,
       fourthYearCredits: parseInt(document.getElementById("fourth-year-credits").value) || 0,
       totalCredits: parseInt(document.getElementById("total-credits").value) || 0,
     };
@@ -360,8 +357,9 @@
       document.getElementById("foreign-second-credits").value = 0;
       document.getElementById("specialized-credits").value = 70;
       document.getElementById("own-credits").value = 14;
+      document.getElementById("general-foundation-credits").value = 6;
       document.getElementById("fourth-year-credits").value = 8;
-      document.getElementById("total-credits").value = 126;
+      autoCalcTotal();
     } else {
       document.getElementById("liberal-credits").value = 26;
       document.getElementById("foreign-mandatory-credits").value = 8;
@@ -369,13 +367,10 @@
       document.getElementById("foreign-second-credits").value = 0;
       document.getElementById("specialized-credits").value = 76;
       document.getElementById("own-credits").value = 14;
+      document.getElementById("general-foundation-credits").value = 6;
       document.getElementById("fourth-year-credits").value = 6;
-      document.getElementById("total-credits").value = 128;
+      autoCalcTotal();
     }
-
-    // 総合基礎3つチェック
-    const checks = document.querySelectorAll("#general-foundation-checks input[type=checkbox]");
-    checks.forEach((cb, i) => { cb.checked = i < 3; });
   }
 
   // === リセット ===

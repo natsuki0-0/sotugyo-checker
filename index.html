@@ -16,6 +16,10 @@
 
   <main>
     <div class="container">
+      <div class="info-banner">
+        <p>CAMPUSWEBの「履修・成績」→「履修状況一覧」を参考に入力してください。</p>
+        <p class="info-sub">このツールはすべて端末内で動作します。入力した情報がサーバーに送信・保存されることは一切ありません。</p>
+      </div>
       <!-- 基本情報セクション -->
       <section class="card" id="basic-info">
         <h2>基本情報</h2>
@@ -121,9 +125,12 @@
           <h3>専門科目</h3>
 
           <div class="subsection">
-            <h4>総合基礎科目（5科目中3科目6単位以上必要）</h4>
-            <div class="checkbox-grid" id="general-foundation-checks">
-              <!-- 動的に生成 -->
+            <h4>総合基礎科目</h4>
+            <p class="section-desc">企業と経営、企業と会計、マネジメント論、マーケティング論、経済学入門の5科目から3科目6単位以上</p>
+            <div class="form-row">
+              <label for="general-foundation-credits">修得単位数</label>
+              <input type="number" id="general-foundation-credits" min="0" max="10" value="0">
+              <span class="unit">単位</span>
             </div>
           </div>
 
@@ -160,7 +167,8 @@
 
         <!-- 合計 -->
         <div class="input-section total-section">
-          <h3>総修得単位数</h3>
+          <h3>総修得単位数（自動計算）</h3>
+          <p class="section-desc">上の入力値から自動計算されます。他に単位がある場合は手動で修正できます。</p>
           <div class="form-row">
             <label for="total-credits">合計</label>
             <input type="number" id="total-credits" min="0" max="200" value="0">

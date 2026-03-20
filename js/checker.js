@@ -55,17 +55,14 @@ function checkGraduation(data, input) {
 
   // 5. 総合基礎科目
   const gfReq = dept.requirements.generalFoundation;
-  const gfCount = input.generalFoundationChecked;
-  const gfCredits = gfCount * 2;
-  const gfCountOk = gfCount >= gfReq.minSubjects;
-  const gfCreditsOk = gfCredits >= gfReq.min;
-  const gfOk = gfCountOk && gfCreditsOk;
+  const gfCredits = input.generalFoundationCredits;
+  const gfOk = gfCredits >= gfReq.min;
   if (!gfOk) allPassed = false;
   results.push({
     label: "総合基礎科目",
-    required: gfReq.minSubjects + "科目" + gfReq.min + "単位以上",
-    current: gfCount + "科目" + gfCredits + "単位",
-    shortage: gfOk ? 0 : Math.max(0, gfReq.minSubjects - gfCount) + "科目不足",
+    required: gfReq.min + "単位以上",
+    current: gfCredits,
+    shortage: Math.max(0, gfReq.min - gfCredits),
     ok: gfOk
   });
 

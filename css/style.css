@@ -79,6 +79,23 @@ header .notice {
   padding: 1.5rem 1rem 3rem;
 }
 
+/* === Info Banner === */
+.info-banner {
+  background: var(--rits-red-bg);
+  border: 1px solid var(--rits-red-light);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.info-banner .info-sub {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--text-light);
+}
+
 /* === Card === */
 .card {
   background: var(--bg-card);
